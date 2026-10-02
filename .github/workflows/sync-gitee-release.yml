@@ -13,4 +13,5 @@ jobs:
       - name: Upload exe to gitee release v_latest
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-        run: python3 .github/scripts/sync_gitee_release.py
+        run: |
+          _retry() { local n=$1 d="$2"; shift 2; local i=0; until "$@"; do i=$((i+1)); if [ "$i" -ge "$n" ]; then echo "\u91cd\u8bd5$i/$n\u4ecd\u5931\u8d25:$d"; return 1; fi; echo "\u5931\u8d25($d) 30\u79d2\u540e\u91cd\u8bd5($i/$n)..."; sleep 30; done; }\n          _retry 4 "sync_gitee_release.py" python3 .github/scripts/sync_gitee_release.py
