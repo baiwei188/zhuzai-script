@@ -15,8 +15,8 @@ jobs:
         run: |
           git config user.name "baiwei188"
           git config user.email "baiwei188@users.noreply.github.com"
-          git remote add gitee https://${GITEE_USER}:${GITEE_TOKEN}@gitee.com/${GITEE_USER}/zhuzai-script.git
-          git push -f gitee HEAD:main
+          git remote add gitee https://${{GITEE_USER}}:${{GITEE_TOKEN}}@gitee.com/${{GITEE_USER}}/zhuzai-script.git
+          _retry() { local n=$1 d="$2"; shift 2; local i=0; until "$@"; do i=$((i+1)); if [ "$i" -ge "$n" ]; then echo "\u91cd\u8bd5$i/$n\u4ecd\u5931\u8d25:$d"; return 1; fi; echo "\u5931\u8d25($d) 30\u79d2\u540e\u91cd\u8bd5($i/$n)..."; sleep 30; done; }\n          _retry 4 "git push gitee" git push -f gitee HEAD:main
         env:
           GITEE_USER: ${{ secrets.GITEE_USER }}
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
