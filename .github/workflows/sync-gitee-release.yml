@@ -1,8 +1,10 @@
-name: Sync exe to gitee release
+name: Sync assets to gitee release
 on:
   push:
     branches: [main]
     paths: ['主宰世界脚本.exe']
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Upload exe to gitee release v_latest
+      - name: Sync to gitee release v_latest
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
         run: |
